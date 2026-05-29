@@ -1,10 +1,10 @@
-This is e-upTeX, Version 3.141592653-p4.1.2-u2.00-250202-2.6 (utf8.euc) (TeX Live 2025) (preloaded format=platex 2025.11.6)  29 MAY 2026 12:09
+This is e-upTeX, Version 3.141592653-p4.1.2-u2.00-250202-2.6 (utf8.euc) (TeX Live 2025) (preloaded format=platex 2025.11.6)  29 MAY 2026 12:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/Users/jintaronishihata/Documents/_KCCT/_Class/Software_Engneering/software-engneering-team6/reports/要件定義書.tex
-(/Users/jintaronishihata/Documents/_KCCT/_Class/Software_Engneering/software-engneering-team6/reports/要件定義書.tex
+**/Users/jintaronishihata/Documents/_KCCT/_Class/Software_Engneering/software-engneering-team6/reports/用件定義書/要件定義書.tex
+(/Users/jintaronishihata/Documents/_KCCT/_Class/Software_Engneering/software-engneering-team6/reports/用件定義書/要件定義書.tex
 pLaTeX2e <2023-02-14>+1, based on
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-10-24>
@@ -93,12 +93,12 @@ L3 programming layer <2025-10-24>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 958 strings out of 468182
- 16282 string characters out of 5434878
+ 959 strings out of 468182
+ 16427 string characters out of 5434878
  428578 words of memory out of 5000000
  29914 multiletter control sequences out of 15000+600000
  636401 words of font info for 74 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 57i,6n,65p,293b,233s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,6n,65p,309b,233s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on 要件定義書.dvi (1 page, 556 bytes).
+Output written on 要件定義書.dvi (1 page, 540 bytes).
