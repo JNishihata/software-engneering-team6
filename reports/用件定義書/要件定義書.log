@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.141592653-p4.1.2-u2.00-250202-2.6 (utf8.euc) (TeX Live 2025) (preloaded format=platex 2025.11.6)  29 MAY 2026 12:48
+This is e-upTeX, Version 3.141592653-p4.1.2-u2.00-250202-2.6 (utf8.euc) (TeX Live 2025) (preloaded format=platex 2025.11.6)  29 MAY 2026 12:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -11,8 +11,8 @@ L3 programming layer <2025-10-24>
 (/usr/local/texlive/2025/texmf-dist/tex/platex/base/jarticle.cls
 Document Class: jarticle 2020/09/30 v1.8f Standard pLaTeX class
 \c@@paper=\count274
-(/usr/local/texlive/2025/texmf-dist/tex/platex/base/jsize11.clo
-File: jsize11.clo 2020/09/30 v1.8f Standard pLaTeX file (size option)
+(/usr/local/texlive/2025/texmf-dist/tex/platex/base/jsize10.clo
+File: jsize10.clo 2020/09/30 v1.8f Standard pLaTeX file (size option)
 )
 \c@part=\count275
 \c@section=\count276
@@ -85,7 +85,12 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 9.
  [1
 
-] (./要件定義書.aux)
+]
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <14.4> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 12.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <14.4> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 12.
+ [2] (./要件定義書.aux)
  ***********
 pLaTeX2e <2023-02-14>+1, based on
 LaTeX2e <2025-11-01>
@@ -93,12 +98,12 @@ L3 programming layer <2025-10-24>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 959 strings out of 468182
- 16427 string characters out of 5434878
+ 965 strings out of 468182
+ 16509 string characters out of 5434878
  428578 words of memory out of 5000000
- 29914 multiletter control sequences out of 15000+600000
- 636401 words of font info for 74 fonts, out of 8000000 for 9000
+ 29919 multiletter control sequences out of 15000+600000
+ 637169 words of font info for 77 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
  57i,6n,65p,309b,233s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on 要件定義書.dvi (1 page, 540 bytes).
+Output written on 要件定義書.dvi (2 pages, 744 bytes).
