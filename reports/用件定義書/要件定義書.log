@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.141592653-p4.1.2-u2.00-250202-2.6 (utf8.euc) (TeX Live 2025) (preloaded format=platex 2025.11.6)  29 MAY 2026 12:56
+This is e-upTeX, Version 3.141592653-p4.1.2-u2.00-250202-2.6 (utf8.euc) (TeX Live 2025) (preloaded format=platex 2025.11.6)  12 JUN 2026 11:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -87,10 +87,28 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 ]
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <14.4> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 12.
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 11.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <14.4> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 12.
- [2] (./要件定義書.aux)
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 11.
+ (./要件定義書.toc
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <10> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 1.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <10> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 1.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 4.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 4.
+)
+\tf@toc=\write3
+\openout3 = `要件定義書.toc'.
+
+ [2] [3]
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <12> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 32.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <12> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 32.
+ [4] [5] [6] [7] [8] [9] (./要件定義書.aux)
  ***********
 pLaTeX2e <2023-02-14>+1, based on
 LaTeX2e <2025-11-01>
@@ -98,12 +116,12 @@ L3 programming layer <2025-10-24>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 965 strings out of 468182
- 16509 string characters out of 5434878
- 428578 words of memory out of 5000000
- 29919 multiletter control sequences out of 15000+600000
- 637169 words of font info for 77 fonts, out of 8000000 for 9000
+ 994 strings out of 468182
+ 16944 string characters out of 5434878
+ 437578 words of memory out of 5000000
+ 29943 multiletter control sequences out of 15000+600000
+ 638119 words of font info for 80 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 57i,6n,65p,309b,233s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,6n,65p,338b,250s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on 要件定義書.dvi (2 pages, 744 bytes).
+Output written on 要件定義書.dvi (9 pages, 21608 bytes).
