@@ -1,11 +1,41 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToDoアプリ</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ToDoアプリ</title>
+        <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    
+    <div class="container">
+        <header>
+            <h1>ToDo アプリ（基礎）</h1>
+        </header>
+
+        <form id="task-form" class="task-form">
+            <input id="title" type="text" placeholder="タスク名を入力" maxlength="140" required />
+            <input id="due" type="date" />
+            <select id="priority">
+                <option value="low">低</option>
+                <option value="medium" selected>中</option>
+                <option value="high">高</option>
+            </select>
+            <button type="submit">追加</button>
+        </form>
+
+        <div class="controls">
+            <label>表示:
+                <select id="filter">
+                    <option value="all">すべて</option>
+                    <option value="active">未完了</option>
+                    <option value="completed">完了</option>
+                </select>
+            </label>
+        </div>
+
+        <ul id="task-list" class="task-list"></ul>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
