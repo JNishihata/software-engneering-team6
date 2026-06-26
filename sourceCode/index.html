@@ -21,43 +21,34 @@
 
         <label>
             ステータス：
-
             <select id="filter">
                 <option value="all">すべて</option>
                 <option value="active">未完了</option>
                 <option value="completed">完了</option>
             </select>
-
         </label>
 
         <label>
-
             重要度：
-
             <select id="priority-filter">
                 <option value="all">すべて</option>
                 <option value="low">低</option>
                 <option value="medium">中</option>
                 <option value="high">高</option>
             </select>
-
         </label>
-        <label>
 
+        <label>
             ジャンル：
-            
             <select id="genre">
                 <option value="homework">課題</option>
             </select>
         </label>
-       
 
     </div>
 
     <p id="error-message" class="error-message"></p>
-
     <ul id="task-edit" class="task-edit"></ul>
-
     <ul id="task-list" class="task-list"></ul>
 
 </div>
@@ -74,50 +65,31 @@
             class="close-button">
             ×
         </button>
-
         <h2>タスク追加</h2>
-
         <form id="task-form" class="task-form">
-
-            <input
-                id="title"
-                type="text"
-                placeholder="タスク名を入力"
-                maxlength="140">
-
-            <input
-                id="note"
-                type="text"
-                placeholder="メモ"
-                maxlength="140">
-
-            <input
-                id="due"
-                type="date">
-
-            <select id="priority">
-
+            <input id="title" type="text" placeholder="タスク名を入力" maxlength="140">
+            <input id="note" type="text" placeholder="メモ" maxlength="140">
+            <input id="due" type="date">
+            <label>
+                重要度：
+            <select id="priority" class="menu">
                 <option value="low">低</option>
                 <option value="medium" selected>中</option>
                 <option value="high">高</option>
-
             </select>
-
-            <select id="genre">
-                <option value="homework">課題</option>
-                <option value="new">新規作成</option>
-            </select>
+            </label>
+            <label>ジャンル：
+                <select id="genre">
+                    <option value="homework">課題</option>
+                    <option value="new">新規作成</option>
+                </select>
+            </label>
             <div id="newGenreArea" style="display:none;">
                 <input type="text" id="newGenre" placeholder="新しいジャンル名">
                 <button type="button" onclick="addGenre()">追加</button>
             </div>
-
-            <button type="submit">
-                追加
-            </button>
-
+            <button type="submit">追加</button>
         </form>
-
     </div>
 
 </div>
