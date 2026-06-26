@@ -69,12 +69,22 @@ header h1{
   gap:10px;
 }
 
+<<<<<<< HEAD
 .title{
   font-weight:bold;
 }
 
 .meta{
   font-size:.85rem;
+=======
+.task .note {
+  font-size:0.85rem;
+  color:var(--muted);
+}
+
+.task .meta{
+  font-size:0.85rem;
+>>>>>>> eca9ab60e820ba930435ca499b98bdbe8c76f8e5
   color:var(--muted);
 }
 
