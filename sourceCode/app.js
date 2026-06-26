@@ -1,6 +1,7 @@
 (() => {
   const form = document.getElementById('task-form');
   const titleInput = document.getElementById('title');
+  const noteInput = document.getElementById('note');
   const dueInput = document.getElementById('due');
   const priorityInput = document.getElementById('priority');
   const filterSelect = document.getElementById('filter');
@@ -52,8 +53,15 @@
     meta.className = 'meta';
     meta.textContent = (task.priority || '') + (task.due ? ' • ' + task.due : '');
 
-    info.appendChild(title); info.appendChild(meta);
-    left.appendChild(checkbox); left.appendChild(info);
+    const note = document.createElement('div');
+    note.className = 'note';
+    note.textContent = (task.note || '');
+
+    info.appendChild(title);
+    info.appendChild(note);
+    info.appendChild(meta);
+    left.appendChild(checkbox);
+    left.appendChild(info);
 
     const actions = document.createElement('div'); 
     actions.className = 'actions';
@@ -107,6 +115,7 @@
       const task = tasks[i];
       titleInput.value = task.title;
       dueInput.value = task.due || '';
+      noteInput.value = task.note || '';
       priorityInput.value = task.priority || 'medium';
       save();
       render();
@@ -145,7 +154,7 @@
       editing = false;
       editing_task_index = -1;
     }
-    const task = { title, due: dueInput.value || null, priority: priorityInput.value || 'medium', completed: false };
+    const task = { title, due: dueInput.value || null, priority: priorityInput.value || 'medium', note: noteInput.value || '',completed: false };
     tasks.push(task);
     save();
     render();
