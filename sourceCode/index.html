@@ -42,6 +42,16 @@
             </select>
 
         </label>
+        <label>
+            <select id="priority">
+                <option value="homework">課題</option>
+            </select>
+            <div id="newGenreArea" style="display:none;">
+                <input type="text" id="newGenre" placeholder="新しいジャンル名">
+                <button type="button" onclick="addGenre()">追加</button>
+            </div>
+        </label>
+       
 
     </div>
 
@@ -93,6 +103,15 @@
                 <option value="high">高</option>
 
             </select>
+
+            <select id="priority">
+                <option value="homework">課題</option>
+                <option value="new">新規作成</option>
+            </select>
+            <div id="newGenreArea" style="display:none;">
+                <input type="text" id="newGenre" placeholder="新しいジャンル名">
+                <button type="button" onclick="addGenre()">追加</button>
+            </div>
 
             <button type="submit">
                 追加
