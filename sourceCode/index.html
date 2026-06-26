@@ -9,11 +9,11 @@
 <body>
     <div class="container">
         <header>
-            <h1>ToDo アプリ（基礎）</h1>
+            <h1>ToDo アプリ</h1>
         </header>
 
         <form id="task-form" class="task-form">
-            <input id="title" type="text" placeholder="タスク名を入力" maxlength="140" required />
+            <input id="title" type="text" placeholder="タスク名を入力" maxlength="140"/>
             <input id="due" type="date" />
             <select id="priority">
                 <option value="low">低</option>
@@ -22,10 +22,7 @@
             </select>
             <button type="submit">追加</button>
         </form>
-
-
-        
-
+        <p id="error-message" class="error-message"></p>
 
         <div class="controls">
             <label>表示:
@@ -36,7 +33,7 @@
                 </select>
             </label>
         </div>
-
+        <ul id="task-edit" class="task-edit"></ul>
         <ul id="task-list" class="task-list"></ul>
     </div>
 
