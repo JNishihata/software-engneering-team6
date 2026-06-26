@@ -4,13 +4,12 @@
   const noteInput = document.getElementById('note');
   const dueInput = document.getElementById('due');
   const priorityInput = document.getElementById('priority');
+  const genreInput = document.getElementById('genre');
   const filterSelect = document.getElementById('filter');
   const priorityFilter = document.getElementById('priority-filter');
   const listEl = document.getElementById('task-list');
   const editEl = document.getElementById('task-edit');
   const error = document.getElementById('error-message');
-
-  // ===== モーダル =====
   const modal = document.getElementById('modal');
   const addButton = document.getElementById('add-button');
   const closeButton = document.getElementById('close-modal');
@@ -50,10 +49,9 @@
   }
 
   function createTaskElement(task, idx){
-
     const li = document.createElement('li');
-    li.className = 'task' + (task.completed ? ' completed' : '');
 
+    li.className = 'task' + (task.completed ? ' completed' : '');
     const left = document.createElement('div');
     left.className = 'left';
 
@@ -73,18 +71,20 @@
     meta.className = 'meta';
     meta.textContent = '';
     let metaText = '';
+
+    const genre = document.createElement('div');
+    genre.className = 'genre';
+    genre.textContent = (task.genre || '');
+
     const note = document.createElement('div');
     note.className = 'note';
     note.textContent = (task.note || '');
+
     info.appendChild(title);
     info.appendChild(note);
     info.appendChild(meta);
     left.appendChild(checkbox);
     left.appendChild(info);
-
-    if(task.note){
-      metaText += task.note;
-    }
 
     if(task.due){
       if(metaText !== '') metaText += ' • ';
@@ -94,6 +94,11 @@
     if(task.priority){
       if(metaText !== '') metaText += ' • ';
       metaText += task.priority;
+    }
+
+    if(task.genre){
+      if(metaText !== '') metaText += ' • ';
+      metaText += task.genre;
     }
 
     meta.textContent = metaText;
@@ -141,58 +146,39 @@
 
     // 完了チェック
     listEl.querySelectorAll('input[type=checkbox]').forEach(cb => {
-
       cb.addEventListener('change', e => {
-
         const i = Number(e.target.dataset.index);
-
         tasks[i].completed = e.target.checked;
-
         save();
         render();
-
       });
 
     });
 
     // 削除
     listEl.querySelectorAll('.delete').forEach(btn => {
-
       btn.addEventListener('click', e => {
-
         const i = Number(e.target.dataset.index);
-
         tasks.splice(i, 1);
-
         save();
         render();
-
       });
-
     });
 
     // 編集
     listEl.querySelectorAll('.edit').forEach(btn => {
-
       btn.addEventListener('click', e => {
-
         editing = true;
-
         const i = Number(e.target.dataset.index);
-
         editing_task_index = i;
-
         const task = tasks[i];
-
         titleInput.value = task.title;
         noteInput.value = task.note || '';
+        genreInput.value = task.genre || '';
         dueInput.value = task.due || '';
         priorityInput.value = task.priority || 'medium';
-
         openModal();
-
       });
-
     });
   }
 
@@ -201,30 +187,21 @@
   // ==========================
 
   addButton.addEventListener('click', () => {
-
     form.reset();
     editing = false;
     editing_task_index = -1;
-
     error.textContent = '';
     titleInput.classList.remove('active');
-
     openModal();
-
   });
 
   closeButton.addEventListener('click', () => {
-
     closeModal();
-
   });
 
   modal.addEventListener('click', e => {
-
     if (e.target === modal) {
-
       closeModal();
-
     }
 
   });
@@ -234,10 +211,8 @@
   // ==========================
 
   titleInput.addEventListener('input', () => {
-
     error.textContent = '';
     titleInput.classList.remove('active');
-
   });
 
   // ==========================
@@ -250,44 +225,32 @@
 
     const title = titleInput.value.trim();
     const note = noteInput.value.trim();
-
     if (!title) {
-
       error.textContent = 'タスク名を入力してください';
-
       titleInput.classList.add('active');
-
       return;
-
     }
 
     const task = {
-
       title,
       note,
       due: dueInput.value || null,
       priority: priorityInput.value || 'medium',
+      genre: genreInput.value || '',
       completed: false
-
     };
 
     if (editing) {
-
       task.completed = tasks[editing_task_index].completed;
-
       tasks[editing_task_index] = task;
-
       editing = false;
       editing_task_index = -1;
-
     } else {
-
       tasks.push(task);
       save();
       render();
       form.reset();
       closeModal();
-
     }
   });
 
@@ -297,11 +260,7 @@
   // ==========================
   // 初期化
   // ==========================
-
   load();
-
   render();
-
   closeModal();
-
 })();
