@@ -71,11 +71,10 @@
 
     const meta = document.createElement('div');
     meta.className = 'meta';
-
+    meta.textContent = '';
     const note = document.createElement('div');
     note.className = 'note';
     note.textContent = (task.note || '');
-
     info.appendChild(title);
     info.appendChild(note);
     info.appendChild(meta);
@@ -305,6 +304,7 @@
       tasks.push(task);
 
     }
+
     const task = { title, due: dueInput.value || null, priority: priorityInput.value || 'medium', note: noteInput.value || '',completed: false };
     tasks.push(task);
     save();
