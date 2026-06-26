@@ -42,6 +42,16 @@
             </select>
 
         </label>
+        <label>
+            <select id="priority">
+                <option value="homework">課題</option>
+            </select>
+            <div id="newGenreArea" style="display:none;">
+                <input type="text" id="newGenre" placeholder="新しいジャンル名">
+                <button type="button" onclick="addGenre()">追加</button>
+            </div>
+        </label>
+       
 
     </div>
 
@@ -69,7 +79,6 @@
         <h2>タスク追加</h2>
 
         <form id="task-form" class="task-form">
-<<<<<<< HEAD
 
             <input
                 id="title"
@@ -87,11 +96,6 @@
                 id="due"
                 type="date">
 
-=======
-            <input id="title" type="text" placeholder="タスク名を入力" maxlength="140"/>
-            <input id="note" type="text" placeholder="メモ" maxlength="140"/>
-            <input id="due" type="date" />
->>>>>>> eca9ab60e820ba930435ca499b98bdbe8c76f8e5
             <select id="priority">
 
                 <option value="low">低</option>
@@ -99,6 +103,15 @@
                 <option value="high">高</option>
 
             </select>
+
+            <select id="priority">
+                <option value="homework">課題</option>
+                <option value="new">新規作成</option>
+            </select>
+            <div id="newGenreArea" style="display:none;">
+                <input type="text" id="newGenre" placeholder="新しいジャンル名">
+                <button type="button" onclick="addGenre()">追加</button>
+            </div>
 
             <button type="submit">
                 追加
