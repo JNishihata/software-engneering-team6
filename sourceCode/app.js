@@ -4,6 +4,7 @@
   const dueInput = document.getElementById('due');
   const priorityInput = document.getElementById('priority');
   const filterSelect = document.getElementById('filter');
+  const priorityFilter = document.getElementById('priority-filter');
   const listEl = document.getElementById('task-list');
 
   const STORAGE_KEY = 'todoTasks_v1';
@@ -37,10 +38,16 @@
 
   function render(){
     const filter = filterSelect.value;
+    const priority = priorityFilter.value;
+
     listEl.innerHTML = '';
+
     tasks.forEach((t,i) => {
       if(filter === 'active' && t.completed) return;
       if(filter === 'completed' && !t.completed) return;
+
+      if(priority !== 'all' && t.priority !== priority) return;
+      
       listEl.appendChild(createTaskElement(t,i));
     });
     attachListeners();
@@ -65,6 +72,7 @@
   });
 
   filterSelect.addEventListener('change', render);
+  priorityFilter.addEventListener('change', render);
 
   // init
   load(); render();
