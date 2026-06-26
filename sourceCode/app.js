@@ -1,11 +1,8 @@
 (() => {
   const form = document.getElementById('task-form');
   const titleInput = document.getElementById('title');
-<<<<<<< HEAD
   const memoInput = document.getElementById('memo');
-=======
   const noteInput = document.getElementById('note');
->>>>>>> eca9ab60e820ba930435ca499b98bdbe8c76f8e5
   const dueInput = document.getElementById('due');
   const priorityInput = document.getElementById('priority');
   const filterSelect = document.getElementById('filter');
@@ -74,20 +71,15 @@
 
     const meta = document.createElement('div');
     meta.className = 'meta';
-
-<<<<<<< HEAD
     let metaText = '';
-=======
     const note = document.createElement('div');
     note.className = 'note';
     note.textContent = (task.note || '');
-
     info.appendChild(title);
     info.appendChild(note);
     info.appendChild(meta);
     left.appendChild(checkbox);
     left.appendChild(info);
->>>>>>> eca9ab60e820ba930435ca499b98bdbe8c76f8e5
 
     if(task.memo){
       metaText += task.memo;
@@ -208,8 +200,6 @@
 
     });
 
-<<<<<<< HEAD
-=======
     listEl.querySelectorAll('.edit').forEach(btn => btn.addEventListener('click', e => {
       editing = true;
       const i = Number(e.target.dataset.index);
@@ -222,7 +212,6 @@
       save();
       render();
     }));
->>>>>>> eca9ab60e820ba930435ca499b98bdbe8c76f8e5
   }
 
   // ==========================
@@ -314,12 +303,9 @@
       tasks.push(task);
 
     }
-<<<<<<< HEAD
 
-=======
     const task = { title, due: dueInput.value || null, priority: priorityInput.value || 'medium', note: noteInput.value || '',completed: false };
     tasks.push(task);
->>>>>>> eca9ab60e820ba930435ca499b98bdbe8c76f8e5
     save();
     render();
 
