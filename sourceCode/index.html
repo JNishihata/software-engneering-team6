@@ -1,52 +1,121 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>ToDoアプリ</title>
-        <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDoアプリ</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div class="container">
-        <header>
-            <h1>ToDo アプリ</h1>
-        </header>
+
+<div class="container">
+
+    <header>
+        <h1>ToDo アプリ</h1>
+    </header>
+
+    <!-- フィルター -->
+    <div class="controls">
+
+        <label>
+            ステータス：
+
+            <select id="filter">
+                <option value="all">すべて</option>
+                <option value="active">未完了</option>
+                <option value="completed">完了</option>
+            </select>
+
+        </label>
+
+        <label>
+
+            重要度：
+
+            <select id="priority-filter">
+                <option value="all">すべて</option>
+                <option value="low">低</option>
+                <option value="medium">中</option>
+                <option value="high">高</option>
+            </select>
+
+        </label>
+
+    </div>
+
+    <p id="error-message" class="error-message"></p>
+
+    <ul id="task-edit" class="task-edit"></ul>
+
+    <ul id="task-list" class="task-list"></ul>
+
+</div>
+
+
+<!-- モーダル -->
+<div id="modal" class="modal hidden">
+
+    <div class="modal-content">
+
+        <button
+            type="button"
+            id="close-modal"
+            class="close-button">
+            ×
+        </button>
+
+        <h2>タスク追加</h2>
 
         <form id="task-form" class="task-form">
-            <input id="title" type="text" placeholder="タスク名を入力" maxlength="140"/>
-            <input id="title" type="text" placeholder="メモ" maxlength="140"/>
-            <input id="due" type="date" />
+
+            <input
+                id="title"
+                type="text"
+                placeholder="タスク名を入力"
+                maxlength="140">
+
+            <input
+                id="memo"
+                type="text"
+                placeholder="メモ"
+                maxlength="140">
+
+            <input
+                id="due"
+                type="date">
+
             <select id="priority">
+
                 <option value="low">低</option>
                 <option value="medium" selected>中</option>
                 <option value="high">高</option>
+
             </select>
-            <button type="submit">追加</button>
+
+            <button type="submit">
+                追加
+            </button>
+
         </form>
-        <p id="error-message" class="error-message"></p>
 
-        <div class="controls">
-            <label>ステータス:
-                <select id="filter">
-                    <option value="all">すべて</option>
-                    <option value="active">未完了</option>
-                    <option value="completed">完了</option>
-                </select>
-            </label>
-
-            <label>重要度:
-                <select id="priority-filter">
-                    <option value="all">すべて</option>
-                    <option value="low">低</option>
-                    <option value="medium">中</option>
-                    <option value="high">高</option>
-                </select>
-            </label>
-        </div>
-        <ul id="task-edit" class="task-edit"></ul>
-        <ul id="task-list" class="task-list"></ul>
     </div>
 
-    <script src="app.js"></script>
+</div>
+
+
+<!-- 右下の＋ボタン -->
+<button
+    id="add-button"
+    class="floating-button">
+
+    +
+
+</button>
+
+
+<script src="app.js"></script>
+
 </body>
 </html>
