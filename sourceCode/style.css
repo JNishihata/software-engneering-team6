@@ -69,6 +69,13 @@ header h1{
   gap:10px;
 }
 
+.title{
+  font-weight:bold;
+}
+
+.meta{
+  font-size:.85rem;
+}
 .task .note {
   font-size:0.85rem;
   color:var(--muted);
