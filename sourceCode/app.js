@@ -72,6 +72,7 @@
     const meta = document.createElement('div');
     meta.className = 'meta';
     meta.textContent = '';
+    let metaText = '';
     const note = document.createElement('div');
     note.className = 'note';
     note.textContent = (task.note || '');
@@ -81,8 +82,8 @@
     left.appendChild(checkbox);
     left.appendChild(info);
 
-    if(task.memo){
-      metaText += task.memo;
+    if(task.note){
+      metaText += task.note;
     }
 
     if(task.due){
@@ -96,13 +97,6 @@
     }
 
     meta.textContent = metaText;
-
-    info.appendChild(title);
-    info.appendChild(meta);
-
-    left.appendChild(checkbox);
-    left.appendChild(info);
-
     const actions = document.createElement('div');
     actions.className = 'actions';
 
@@ -191,7 +185,7 @@
         const task = tasks[i];
 
         titleInput.value = task.title;
-        memoInput.value = task.memo || '';
+        noteInput.value = task.note || '';
         dueInput.value = task.due || '';
         priorityInput.value = task.priority || 'medium';
 
@@ -200,19 +194,6 @@
       });
 
     });
-
-    listEl.querySelectorAll('.edit').forEach(btn => btn.addEventListener('click', e => {
-      editing = true;
-      const i = Number(e.target.dataset.index);
-      editing_task_index = i;
-      const task = tasks[i];
-      titleInput.value = task.title;
-      dueInput.value = task.due || '';
-      noteInput.value = task.note || '';
-      priorityInput.value = task.priority || 'medium';
-      save();
-      render();
-    }));
   }
 
   // ==========================
@@ -268,7 +249,7 @@
     e.preventDefault();
 
     const title = titleInput.value.trim();
-    const memo = memoInput.value.trim();
+    const note = noteInput.value.trim();
 
     if (!title) {
 
@@ -283,7 +264,7 @@
     const task = {
 
       title,
-      memo,
+      note,
       due: dueInput.value || null,
       priority: priorityInput.value || 'medium',
       completed: false
@@ -302,6 +283,10 @@
     } else {
 
       tasks.push(task);
+      save();
+      render();
+      form.reset();
+      closeModal();
 
     }
   });
