@@ -1,11 +1,11 @@
 (() => {
   const form = document.getElementById('task-form');
   const titleInput = document.getElementById('title');
-  const memoInput = document.getElementById('memo');
   const noteInput = document.getElementById('note');
   const dueInput = document.getElementById('due');
   const priorityInput = document.getElementById('priority');
   const filterSelect = document.getElementById('filter');
+  const priorityFilter = document.getElementById('priority-filter');
   const listEl = document.getElementById('task-list');
   const editEl = document.getElementById('task-edit');
   const error = document.getElementById('error-message');
@@ -71,7 +71,7 @@
 
     const meta = document.createElement('div');
     meta.className = 'meta';
-    let metaText = '';
+    meta.textContent = '';
     const note = document.createElement('div');
     note.className = 'note';
     note.textContent = (task.note || '');
@@ -127,16 +127,17 @@
   }
     function render() {
     const filter = filterSelect.value;
+    const priority = priorityFilter.value;
 
     listEl.innerHTML = '';
 
-    tasks.forEach((t, i) => {
+    tasks.forEach((t,i) => {
+      if(filter === 'active' && t.completed) return;
+      if(filter === 'completed' && !t.completed) return;
 
-      if (filter === 'active' && t.completed) return;
-      if (filter === 'completed' && !t.completed) return;
-
-      listEl.appendChild(createTaskElement(t, i));
-
+      if(priority !== 'all' && t.priority !== priority) return;
+      
+      listEl.appendChild(createTaskElement(t,i));
     });
 
     attachListeners();
@@ -316,6 +317,7 @@
   });
 
   filterSelect.addEventListener('change', render);
+  priorityFilter.addEventListener('change', render);
 
   // ==========================
   // 初期化
