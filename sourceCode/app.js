@@ -303,16 +303,6 @@
       tasks.push(task);
 
     }
-
-    const task = { title, due: dueInput.value || null, priority: priorityInput.value || 'medium', note: noteInput.value || '',completed: false };
-    tasks.push(task);
-    save();
-    render();
-
-    form.reset();
-
-    closeModal();
-
   });
 
   filterSelect.addEventListener('change', render);
