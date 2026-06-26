@@ -4,6 +4,7 @@
   const noteInput = document.getElementById('note');
   const dueInput = document.getElementById('due');
   const priorityInput = document.getElementById('priority');
+  const genreInput = document.getElementById('genre');
   const filterSelect = document.getElementById('filter');
   const priorityFilter = document.getElementById('priority-filter');
   const listEl = document.getElementById('task-list');
@@ -51,34 +52,41 @@
 
   function createTaskElement(task, idx){
     const li = document.createElement('li');
+
     li.className = 'task' + (task.completed ? ' completed' : '');
     const left = document.createElement('div');
     left.className = 'left';
+
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.dataset.index = idx;
     checkbox.checked = !!task.completed;
+
     const info = document.createElement('div');
     info.className = 'info';
+
     const title = document.createElement('div');
     title.className = 'title';
     title.innerHTML = escapeHtml(task.title);
+
     const meta = document.createElement('div');
     meta.className = 'meta';
     meta.textContent = '';
     let metaText = '';
+
+    const genre = document.createElement('div');
+    genre.className = 'genre';
+    genre.textContent = (task.genre || '');
+
     const note = document.createElement('div');
     note.className = 'note';
     note.textContent = (task.note || '');
+
     info.appendChild(title);
     info.appendChild(note);
     info.appendChild(meta);
     left.appendChild(checkbox);
     left.appendChild(info);
-
-    if(task.note){
-      metaText += task.note;
-    }
 
     if(task.due){
       if(metaText !== '') metaText += ' • ';
@@ -88,6 +96,11 @@
     if(task.priority){
       if(metaText !== '') metaText += ' • ';
       metaText += task.priority;
+    }
+
+    if(task.genre){
+      if(metaText !== '') metaText += ' • ';
+      metaText += task.genre;
     }
 
     meta.textContent = metaText;
