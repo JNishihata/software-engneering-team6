@@ -50,25 +50,19 @@
   }
 
   function createTaskElement(task, idx){
-
     const li = document.createElement('li');
     li.className = 'task' + (task.completed ? ' completed' : '');
-
     const left = document.createElement('div');
     left.className = 'left';
-
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.dataset.index = idx;
     checkbox.checked = !!task.completed;
-
     const info = document.createElement('div');
     info.className = 'info';
-
     const title = document.createElement('div');
     title.className = 'title';
     title.innerHTML = escapeHtml(task.title);
-
     const meta = document.createElement('div');
     meta.className = 'meta';
     meta.textContent = '';
@@ -141,58 +135,38 @@
 
     // 完了チェック
     listEl.querySelectorAll('input[type=checkbox]').forEach(cb => {
-
       cb.addEventListener('change', e => {
-
         const i = Number(e.target.dataset.index);
-
         tasks[i].completed = e.target.checked;
-
         save();
         render();
-
       });
 
     });
 
     // 削除
     listEl.querySelectorAll('.delete').forEach(btn => {
-
       btn.addEventListener('click', e => {
-
         const i = Number(e.target.dataset.index);
-
         tasks.splice(i, 1);
-
         save();
         render();
-
       });
-
     });
 
     // 編集
     listEl.querySelectorAll('.edit').forEach(btn => {
-
       btn.addEventListener('click', e => {
-
         editing = true;
-
         const i = Number(e.target.dataset.index);
-
         editing_task_index = i;
-
         const task = tasks[i];
-
         titleInput.value = task.title;
         noteInput.value = task.note || '';
         dueInput.value = task.due || '';
         priorityInput.value = task.priority || 'medium';
-
         openModal();
-
       });
-
     });
   }
 
@@ -201,30 +175,21 @@
   // ==========================
 
   addButton.addEventListener('click', () => {
-
     form.reset();
     editing = false;
     editing_task_index = -1;
-
     error.textContent = '';
     titleInput.classList.remove('active');
-
     openModal();
-
   });
 
   closeButton.addEventListener('click', () => {
-
     closeModal();
-
   });
 
   modal.addEventListener('click', e => {
-
     if (e.target === modal) {
-
       closeModal();
-
     }
 
   });
@@ -234,10 +199,8 @@
   // ==========================
 
   titleInput.addEventListener('input', () => {
-
     error.textContent = '';
     titleInput.classList.remove('active');
-
   });
 
   // ==========================
@@ -250,44 +213,31 @@
 
     const title = titleInput.value.trim();
     const note = noteInput.value.trim();
-
     if (!title) {
-
       error.textContent = 'タスク名を入力してください';
-
       titleInput.classList.add('active');
-
       return;
-
     }
 
     const task = {
-
       title,
       note,
       due: dueInput.value || null,
       priority: priorityInput.value || 'medium',
       completed: false
-
     };
 
     if (editing) {
-
       task.completed = tasks[editing_task_index].completed;
-
       tasks[editing_task_index] = task;
-
       editing = false;
       editing_task_index = -1;
-
     } else {
-
       tasks.push(task);
       save();
       render();
       form.reset();
       closeModal();
-
     }
   });
 
@@ -297,11 +247,7 @@
   // ==========================
   // 初期化
   // ==========================
-
   load();
-
   render();
-
   closeModal();
-
 })();
