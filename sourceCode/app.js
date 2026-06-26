@@ -10,8 +10,6 @@
   const listEl = document.getElementById('task-list');
   const editEl = document.getElementById('task-edit');
   const error = document.getElementById('error-message');
-
-  // ===== モーダル =====
   const modal = document.getElementById('modal');
   const addButton = document.getElementById('add-button');
   const closeButton = document.getElementById('close-modal');
@@ -176,6 +174,7 @@
         const task = tasks[i];
         titleInput.value = task.title;
         noteInput.value = task.note || '';
+        genreInput.value = task.genre || '';
         dueInput.value = task.due || '';
         priorityInput.value = task.priority || 'medium';
         openModal();
@@ -237,6 +236,7 @@
       note,
       due: dueInput.value || null,
       priority: priorityInput.value || 'medium',
+      genre: genreInput.value || '',
       completed: false
     };
 
