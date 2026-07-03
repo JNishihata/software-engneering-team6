@@ -3,10 +3,11 @@
   const titleInput = document.getElementById('title');
   const noteInput = document.getElementById('note');
   const dueInput = document.getElementById('due');
-  const priorityInput = document.getElementById('priority');
-  const genreInput = document.getElementById('genre');
-  const filterSelect = document.getElementById('filter');
-  const priorityFilter = document.getElementById('priority-filter');
+  const priorityInput = document.getElementById('task-priority');
+  const genreInput = document.getElementById('task-genre');
+  const statusFilter = document.getElementById('filter-status');
+  const priorityFilter = document.getElementById('filter-priority');
+  const genreFilter = document.getElementById('filter-genre');
   const listEl = document.getElementById('task-list');
   const editEl = document.getElementById('task-edit');
   const error = document.getElementById('error-message');
@@ -125,16 +126,19 @@
     return li;
   }
     function render() {
-    const filter = filterSelect.value;
+    const status = statusFilter.value;
     const priority = priorityFilter.value;
+    const genre = genreFilter.value;
 
     listEl.innerHTML = '';
 
     tasks.forEach((t,i) => {
-      if(filter === 'active' && t.completed) return;
-      if(filter === 'completed' && !t.completed) return;
+      if(status === 'active' && t.completed) return;
+      if(status === 'completed' && !t.completed) return;
 
       if(priority !== 'all' && t.priority !== priority) return;
+
+      if(genre !== 'all' && t.genre !== genre) return;
       
       listEl.appendChild(createTaskElement(t,i));
     });
@@ -254,8 +258,9 @@
     }
   });
 
-  filterSelect.addEventListener('change', render);
+  statusFilter.addEventListener('change', render);
   priorityFilter.addEventListener('change', render);
+  genreFilter.addEventListener('change', render);
 
   // ==========================
   // 初期化
