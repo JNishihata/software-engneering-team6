@@ -272,23 +272,23 @@
     };
 
     if (editing) {
-
+      // 完了状態だけは保持
       task.completed = tasks[editing_task_index].completed;
-
+      // 元のタスクを書き換える
       tasks[editing_task_index] = task;
 
       editing = false;
       editing_task_index = -1;
-
+    
     } else {
-
+      // 新規追加
       tasks.push(task);
-      save();
-      render();
-      form.reset();
-      closeModal();
-
     }
+    // 編集・追加どちらでも共通処理
+    save();
+    render();
+    form.reset();
+    closeModal();
   });
 
   filterSelect.addEventListener('change', render);
