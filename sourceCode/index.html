@@ -21,7 +21,7 @@
 
         <label>
             ステータス：
-            <select id="filter">
+            <select id="filter-status">
                 <option value="all">すべて</option>
                 <option value="active">未完了</option>
                 <option value="completed">完了</option>
@@ -30,7 +30,7 @@
 
         <label>
             重要度：
-            <select id="priority-filter">
+            <select id="filter-priority">
                 <option value="all">すべて</option>
                 <option value="low">低</option>
                 <option value="medium">中</option>
@@ -40,7 +40,7 @@
 
         <label>
             ジャンル：
-            <select id="genre">
+            <select id="filter-genre">
                 <option value="homework">課題</option>
             </select>
         </label>
@@ -72,14 +72,14 @@
             <input id="due" type="date">
             <label>
                 重要度：
-            <select id="priority" class="menu">
+            <select id="task-priority" class="menu">
                 <option value="low">低</option>
                 <option value="medium" selected>中</option>
                 <option value="high">高</option>
             </select>
             </label>
             <label>ジャンル：
-                <select id="genre">
+                <select id="task-genre">
                     <option value="homework">課題</option>
                     <option value="new">新規作成</option>
                 </select>
