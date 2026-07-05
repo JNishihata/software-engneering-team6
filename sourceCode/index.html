@@ -32,9 +32,9 @@
             重要度：
             <select id="filter-priority">
                 <option value="all">すべて</option>
-                <option value="low">低</option>
-                <option value="medium">中</option>
                 <option value="high">高</option>
+                <option value="medium">中</option>
+                <option value="low">低</option>
             </select>
         </label>
 
@@ -73,9 +73,9 @@
             <label>
                 重要度：
             <select id="task-priority" class="menu">
-                <option value="low">低</option>
-                <option value="medium" selected>中</option>
                 <option value="high">高</option>
+                <option value="medium" selected>中</option>
+                <option value="low">低</option>
             </select>
             </label>
             <label>ジャンル：
@@ -83,6 +83,11 @@
                     <option value="homework">課題</option>
                     <option value="new">新規作成</option>
                 </select>
+            </label>
+            <label>
+                新規ジャンルの追加：
+                <input id="new_genre" type="text" placeholder="新規ジャンル名を入力">
+
             </label>
             <div id="newGenreArea" style="display:none;">
                 <input type="text" id="newGenre" placeholder="新しいジャンル名">
