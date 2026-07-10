@@ -14,9 +14,21 @@
   const listEl = document.getElementById('task-list');
   const editEl = document.getElementById('task-edit');
   const error = document.getElementById('error-message');
-  const modal = document.getElementById('modal');
+  const taskAddModal = document.getElementById('task-add-modal');
+  const genreEditModal = document.getElementById('genre-edit-modal');
   const addButton = document.getElementById('add-button');
-  const closeButton = document.getElementById('close-modal');
+  const showGenreEditModalButton = document.getElementById('show-genre-edit-modal-button')
+  const closeTaskAddModalButton = document.getElementById('close-task-add-modal');
+  const closeGenreEditModalButton = document.getElementById('close-genre-edit-modal');
+  const newGenreArea = document.getElementById('newGenreArea');
+  const newGenreInput = document.getElementById('newGenre');
+  const addGenreButton = document.getElementById('add-genre-button');
+  const menuButton = document.getElementById('menu-button');
+  const menuDropdown = document.getElementById('menu-dropdown');
+  const genreManageList = document.getElementById('genre-manage-list');
+
+  // ジャンルの新規作成を選ぶ際に使う特別な値（実際のジャンル名とは絶対に衝突しない前提の予約値）
+  const NEW_GENRE_OPTION_VALUE = '__new__';
 
   // Flag of editing mode
   let editing = false;
@@ -39,6 +51,21 @@
     tasks = raw ? JSON.parse(raw) : [];
   }
 
+  // ジャンル一覧を保存するキー。tasksとは別に、ユーザーが追加したジャンル名だけを管理する
+  const GENRES_STORAGE_KEY = 'todoGenres_v1';
+  // 選択肢として表示するジャンル名の一覧（タスクで使われているかどうかに関わらず保持する）
+  let genres = [];
+
+  function saveGenres() {
+    localStorage.setItem(GENRES_STORAGE_KEY, JSON.stringify(genres));
+  }
+
+  // 保存データが無い場合は初期ジャンルとして「課題」を1つ用意する
+  function loadGenres() {
+    const raw = localStorage.getItem(GENRES_STORAGE_KEY);
+    genres = raw ? JSON.parse(raw) : ['課題'];
+  }
+
   // タスク名をHTMLとして描画する際にXSS（スクリプト注入）を防ぐための簡易エスケープ
   function escapeHtml(s){
     return String(s)
@@ -51,12 +78,90 @@
   // モーダル操作関数
   // ==========================
 
-  function openModal(){
-    modal.classList.remove('hidden');
+
+  // ジャンル一覧（genres配列）の内容に合わせて、フィルター用セレクトとフォーム用セレクトの
+  // <option>を作り直す。ジャンルの追加・削除があるたびに呼び出す
+  function renderGenreOptions() {
+    const currentFilterValue = genreFilter.value || 'all';
+    genreFilter.innerHTML = '';
+    const allOption = document.createElement('option');
+    allOption.value = 'all';
+    allOption.textContent = 'すべて';
+    genreFilter.appendChild(allOption);
+    genres.forEach(g => {
+      const opt = document.createElement('option');
+      opt.value = g;
+      opt.textContent = g;
+      genreFilter.appendChild(opt);
+    });
+    genreFilter.value = genres.includes(currentFilterValue) ? currentFilterValue : 'all';
+
+    const currentTaskGenreValue = genreInput.value;
+    genreInput.innerHTML = '';
+    genres.forEach(g => {
+      const opt = document.createElement('option');
+      opt.value = g;
+      opt.textContent = g;
+      genreInput.appendChild(opt);
+    });
+    const newOption = document.createElement('option');
+    newOption.value = NEW_GENRE_OPTION_VALUE;
+    newOption.textContent = '新規作成';
+    genreInput.appendChild(newOption);
+    if (genres.includes(currentTaskGenreValue)) {
+      genreInput.value = currentTaskGenreValue;
+    }
   }
 
-  function closeModal(){
-    modal.classList.add('hidden');
+  // ヘッダーの「・・・」メニュー内、ジャンル管理一覧を描画する。
+  // 各ジャンルに削除ボタンを添え、クリックでgenres配列から取り除く
+  function renderGenreManageList() {
+    genreManageList.innerHTML = '';
+
+    if (genres.length === 0) {
+      const empty = document.createElement('li');
+      empty.className = 'genre-empty';
+      empty.textContent = 'ジャンルがありません';
+      genreManageList.appendChild(empty);
+      return;
+    }
+
+    genres.forEach((g, i) => {
+      const li = document.createElement('li');
+
+      const name = document.createElement('span');
+      name.textContent = g;
+
+      const del = document.createElement('button');
+      del.type = 'button';
+      del.className = 'genre-delete';
+      del.dataset.index = i;
+      del.textContent = '×';
+      del.addEventListener('click', () => {
+        genres.splice(i, 1);
+        saveGenres();
+        refreshGenreUI();
+      });
+
+      li.appendChild(name);
+      li.appendChild(del);
+      genreManageList.appendChild(li);
+    });
+  }
+
+  // ジャンル一覧に変更があった際に、フォーム/フィルターの選択肢とメニューの管理一覧を両方更新する
+  function refreshGenreUI() {
+    renderGenreOptions();
+    renderGenreManageList();
+  }
+
+  // genres一覧に無ければ追加して保存し、選択肢を再描画する
+  function addGenreIfNew(name) {
+    if (!genres.includes(name)) {
+      genres.push(name);
+      saveGenres();
+      refreshGenreUI();
+    }
   }
 
   // 1件のタスクを<li>要素として組み立てる。
@@ -186,10 +291,11 @@
         const task = tasks[i];
         titleInput.value = task.title;
         noteInput.value = task.note || '';
+        newGenreArea.classList.add('hidden');
         genreInput.value = task.genre || '';
         dueInput.value = task.due || '';
         priorityInput.value = task.priority || 'medium';
-        openModal();
+        taskAddModal.classList.remove('hidden');
       });
     });
   }
@@ -205,21 +311,80 @@
     editing_task_index = -1;
     error.textContent = '';
     titleInput.classList.remove('active');
-    openModal();
+    newGenreArea.classList.add('hidden');
+    taskAddModal.classList.remove('hidden');
+  });
+
+  showGenreEditModalButton.addEventListener('click', () => {
+    genreEditModal.classList.remove('hidden');
+  });
+
+  // ==========================
+  // ヘッダーメニュー（・・・ボタン）のイベント登録
+  // ==========================
+
+  // 「・・・」ボタンでドロップダウンの開閉をトグルする
+  menuButton.addEventListener('click', e => {
+    e.stopPropagation();
+    menuDropdown.classList.toggle('hidden');
+  });
+
+  // メニューの外側をクリックしたら閉じる
+  document.addEventListener('click', e => {
+    if (!menuDropdown.classList.contains('hidden') && !e.target.closest('.menu-wrapper')) {
+      menuDropdown.classList.add('hidden');
+    }
+  });
+
+  // ==========================
+  // ジャンル追加まわりのイベント登録
+  // ==========================
+
+  // ジャンルのセレクトで「新規作成」を選んだときだけ、ジャンル名入力欄を表示する
+  genreInput.addEventListener('change', () => {
+    if (genreInput.value === NEW_GENRE_OPTION_VALUE) {
+      newGenreArea.classList.remove('hidden');
+      newGenreInput.focus();
+    } else {
+      newGenreArea.classList.add('hidden');
+    }
+  });
+
+  // 「追加」ボタン: 入力されたジャンル名をgenres一覧に追加し、選択肢を再描画したうえで
+  // 追加したジャンルをそのままタスクのジャンルとして選択状態にする
+  addGenreButton.addEventListener('click', () => {
+    const newGenre = newGenreInput.value.trim();
+    if (!newGenre) {
+      newGenreInput.value = '';
+      return;
+    }
+    addGenreIfNew(newGenre);
+    genreInput.value = newGenre;
+    newGenreInput.value = '';
+    newGenreArea.classList.add('hidden');
   });
 
   // 「閉じる」ボタンでモーダルを閉じる
-  closeButton.addEventListener('click', () => {
-    closeModal();
+  closeTaskAddModalButton.addEventListener('click', () => {
+    taskAddModal.classList.add('hidden');
+  });
+
+  closeGenreEditModalButton.addEventListener('click', () => {
+    genreEditModal.classList.add('hidden');
   });
 
   // モーダルの背景（オーバーレイ）部分をクリックしたときだけ閉じる
-  // （e.target === modal のチェックがないとモーダル内部のクリックでも閉じてしまう）
-  modal.addEventListener('click', e => {
-    if (e.target === modal) {
-      closeModal();
+  // （e.target === 各モーダル要素 のチェックがないとモーダル内部のクリックでも閉じてしまう）
+  taskAddModal.addEventListener('click', e => {
+    if (e.target === taskAddModal) {
+      taskAddModal.classList.add('hidden');
     }
+  });
 
+  genreEditModal.addEventListener('click', e => {
+    if (e.target === genreEditModal) {
+      genreEditModal.classList.add('hidden');
+    }
   });
 
   // ==========================
@@ -248,6 +413,20 @@
       return;
     }
 
+    // ジャンルが「新規作成」のまま追加ボタンを押さずに送信された場合は、
+    // 入力欄の内容をここでジャンルとして確定する
+    if (genreInput.value === NEW_GENRE_OPTION_VALUE) {
+      const newGenre = newGenreInput.value.trim();
+      if (!newGenre) {
+        error.textContent = 'ジャンル名を入力するか、既存のジャンルを選択してください';
+        return;
+      }
+      addGenreIfNew(newGenre);
+      genreInput.value = newGenre;
+      newGenreInput.value = '';
+      newGenreArea.classList.add('hidden');
+    }
+
     // フォームの入力値から新しいタスクオブジェクトを生成
     const task = {
       title,
@@ -267,14 +446,14 @@
       save();
       render();
       form.reset();
-      closeModal();
+      taskAddModal.classList.add('hidden');
     } else {
       // 新規追加モード: 配列末尾に新しいタスクを追加する
       tasks.push(task);
       save();
       render();
       form.reset();
-      closeModal();
+      taskAddModal.classList.add('hidden');
     }
   });
 
@@ -286,8 +465,11 @@
   // ==========================
   // 初期化
   // ==========================
-  // localStorageから既存タスクを読み込み → 一覧を描画 → モーダルは閉じた状態でスタート
+  // localStorageからジャンル一覧・既存タスクを読み込み → 選択肢とタスク一覧を描画 → モーダルは閉じた状態でスタート
+  loadGenres();
+  refreshGenreUI();
   load();
   render();
-  closeModal();
+  taskAddModal.classList.add('hidden');
+  genreEditModal.classList.add('hidden');
 })();
