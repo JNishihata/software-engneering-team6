@@ -22,3 +22,7 @@ ToDo管理アプリです。タスクの追加・編集・削除・完了管理�
 - `index.html` アプリの画面構成
 - `style.css` 見た目の定義
 - `app.js` タスク管理の処理
+
+## 命名規則
+- タスク追加用モーダル：task-add-mordal（js内：taskAddMordal）
+- ジャンル編集モーダル：genre-edit-mordal（js内：genreEditMordal）
