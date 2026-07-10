@@ -1,7 +1,7 @@
-// ToDoアプリ本体。localStorageへの永続化とタスクの一覧表示・追加・編集・削除・フィルタリングを担う。
+// To do App's main logic file. localStorageへの永続化とタスクの一覧表示・追加・編集・削除・フィルタリングを担う。
 // グローバルスコープを汚さないよう即時実行関数（IIFE）で全体を包んでいる。
 (() => {
-  // index.html内の要素をあらかじめ取得しておく
+  // Get elements in index.html
   const form = document.getElementById('task-form');
   const titleInput = document.getElementById('title');
   const noteInput = document.getElementById('note');
@@ -18,9 +18,9 @@
   const addButton = document.getElementById('add-button');
   const closeButton = document.getElementById('close-modal');
 
-  // フォームが「新規追加モード」か「既存タスクの編集モード」かを判定する状態
+  // Flag of editing mode
   let editing = false;
-  // 編集対象タスクの tasks 配列内インデックス（タスクにIDは無く、配列の位置がそのまま識別子）
+  // Index of editing task (Order of task)
   let editing_task_index = -1;
 
   // localStorageに保存する際のキー名。フォーマットを変える場合はバージョン番号を上げる想定
