@@ -203,8 +203,30 @@
     left.appendChild(checkbox);
     left.appendChild(info);
 
+    let priority_show = "";
+
+    switch (task.priority) {
+      case "low":
+      priority_show = "低";
+      break;
+
+    case "medium":
+      priority_show = "中";
+      break;
+
+    case "high":
+      priority_show = "高";
+      break;
+      
+      default:
+        priority_show = "";
+        break;
+    }
+
+
+
     // 期限・優先度・ジャンルのうち値がある項目だけを「 • 」区切りで表示する
-    meta.textContent = [task.due, task.priority, task.genre]
+    meta.textContent = [task.due, priority_show, task.genre]
       .filter(Boolean)
       .join(' • ');
 
