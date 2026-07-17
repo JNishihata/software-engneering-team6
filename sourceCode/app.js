@@ -26,6 +26,7 @@
   const menuButton = document.getElementById('menu-button');
   const menuDropdown = document.getElementById('menu-dropdown');
   const genreManageList = document.getElementById('genre-manage-list');
+  const showCompleted = document.getElementById('show-completed');
 
   // ジャンルの新規作成を選ぶ際に使う特別な値（実際のジャンル名とは絶対に衝突しない前提の予約値）
   const NEW_GENRE_OPTION_VALUE = '__new__';
@@ -263,9 +264,11 @@
     listEl.innerHTML = '';
 
     tasks.forEach((t,i) => {
-      // ステータスフィルター（すべて/未完了/完了）に合致しないタスクは表示しない
+
+      // 「完了済みタスクを表示」のチェックボックスを押すと完了も表示される
+      if (!showCompleted.checked && t.completed) return;
       if(status === 'active' && t.completed) return;
-      if(status === 'completed' && !t.completed) return;
+      // if(status === 'completed' && !t.completed) return;
 
       // 優先度フィルターに合致しないタスクは表示しない
       if(priority !== 'all' && t.priority !== priority) return;
@@ -489,6 +492,7 @@
   statusFilter.addEventListener('change', render);
   priorityFilter.addEventListener('change', render);
   genreFilter.addEventListener('change', render);
+  showCompleted.addEventListener('change', render);
 
   // ==========================
   // 初期化

@@ -19,6 +19,11 @@
             <button type="button" id="menu-button" class="menu-button" aria-label="メニュー">・・・</button>
             <div id="menu-dropdown" class="menu-dropdown hidden">
                 <button id="show-genre-edit-modal-button">ジャンル管理</button>
+        
+                <label>
+                    <input type="checkbox" id="show-completed">
+                    完了済みタスクを表示
+                </label>
             </div>
         </div>
     </header>
@@ -26,14 +31,15 @@
     <!-- フィルター -->
     <div class="controls">
 
-        <label>
+        <!-- ・・・から変更できるようにしたのでここは不要 -->
+        <!-- <label>
             ステータス：
             <select id="filter-status">
                 <option value="all">すべて</option>
                 <option value="active">未完了</option>
                 <option value="completed">完了</option>
             </select>
-        </label>
+        </label> -->
 
         <label>
             重要度：
