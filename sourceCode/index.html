@@ -14,6 +14,13 @@
 
     <header>
         <h1>ToDo アプリ</h1>
+
+        <div class="menu-wrapper">
+            <button type="button" id="menu-button" class="menu-button" aria-label="メニュー">・・・</button>
+            <div id="menu-dropdown" class="menu-dropdown hidden">
+                <button id="show-genre-edit-modal-button">ジャンル管理</button>
+            </div>
+        </div>
     </header>
 
     <!-- フィルター -->
@@ -21,7 +28,7 @@
 
         <label>
             ステータス：
-            <select id="filter">
+            <select id="filter-status">
                 <option value="all">すべて</option>
                 <option value="active">未完了</option>
                 <option value="completed">完了</option>
@@ -30,19 +37,17 @@
 
         <label>
             重要度：
-            <select id="priority-filter">
+            <select id="filter-priority">
                 <option value="all">すべて</option>
-                <option value="low">低</option>
-                <option value="medium">中</option>
                 <option value="high">高</option>
+                <option value="medium">中</option>
+                <option value="low">低</option>
             </select>
         </label>
 
         <label>
             ジャンル：
-            <select id="genre">
-                <option value="homework">課題</option>
-            </select>
+            <select id="filter-genre"></select>
         </label>
 
     </div>
@@ -55,13 +60,13 @@
 
 
 <!-- モーダル -->
-<div id="modal" class="modal hidden">
+<div id="task-add-modal" class="modal hidden">
 
     <div class="modal-content">
 
         <button
             type="button"
-            id="close-modal"
+            id="close-task-add-modal"
             class="close-button">
             ×
         </button>
@@ -72,21 +77,18 @@
             <input id="due" type="date">
             <label>
                 重要度：
-            <select id="priority" class="menu">
-                <option value="low">低</option>
-                <option value="medium" selected>中</option>
+            <select id="task-priority" class="menu">
                 <option value="high">高</option>
+                <option value="medium" selected>中</option>
+                <option value="low">低</option>
             </select>
             </label>
             <label>ジャンル：
-                <select id="genre">
-                    <option value="homework">課題</option>
-                    <button type="submit">追加</button>
-                </select>
+                <select id="task-genre"></select>
             </label>
-            <div id="newGenreArea" style="display:none; margin-top:10px;">
+            <div id="newGenreArea" class="hidden">
                 <input type="text" id="newGenre" placeholder="新しいジャンル名">
-                <button type="button" onclick="addGenre()">追加</button>
+                <button type="button" id="add-genre-button">追加</button>
             </div>
             <button type="submit">追加</button>
         </form>
@@ -94,52 +96,22 @@
 
 </div>
 
-<script>
-    const genreSelect = document.getElementById("genre");
-    const newGenreArea = document.getElementById("newGenreArea");
-    // プルダウンが変更されたとき
-    genreSelect.addEventListener("change", function (){
-        if(this.value === "new"){
-            newGenreArea.style.display = "block";
-        }else{
-            newGenreArea.style.display = "none";
-        }
-    });
+<div id="genre-edit-modal" class="modal hidden">
 
-    // 新しいジャンルを追加
-    function addGenre(){
-        const input = document.getElementById("newGenre");
-        const name = input.value.trim();
+    <div class="modal-content">
 
-        if(name===""){
-            alert("ジャンル名を入力してください");
-            return;
-        }
+        <button
+            type="button"
+            id="close-genre-edit-modal"
+            class="close-button">
+            ×
+        </button>
+        <h2>ジャンル管理</h2>
+        <ul id="genre-manage-list" class="genre-manage-list"></ul>
+    </div>
 
-        // 同じジャンルがあるか確認
-        for (let option of genreSelect.options){
-            if(option.value === name){
-                alert("そのジャンルはすでにあります。");
-                return;
-            }
-        }
+</div>
 
-        // option作成
-        const option =document.createElement("option");
-        option.value = name;
-        option.textContent = name;
-
-        // 「＋新規作成」の前に追加
-        genre.Select.insertBefore(option,genreSelect.lastElementChild);
-
-        // 追加したジャンルを選択
-        genreSelect.value = name;
-
-        // リセット
-        input.value ="";
-        newGenreArea.style.display ="none";
-    }
-</script>
 
 <!-- 右下の＋ボタン -->
 <button
