@@ -81,10 +81,10 @@
             <label>ジャンル：
                 <select id="genre">
                     <option value="homework">課題</option>
-                    <option value="new">新規作成</option>
+                    <button type="submit">追加</button>
                 </select>
             </label>
-            <div id="newGenreArea" style="display:none;">
+            <div id="newGenreArea" style="display:none; margin-top:10px;">
                 <input type="text" id="newGenre" placeholder="新しいジャンル名">
                 <button type="button" onclick="addGenre()">追加</button>
             </div>
@@ -94,6 +94,52 @@
 
 </div>
 
+<script>
+    const genreSelect = document.getElementById("genre");
+    const newGenreArea = document.getElementById("newGenreArea");
+    // プルダウンが変更されたとき
+    genreSelect.addEventListener("change", function (){
+        if(this.value === "new"){
+            newGenreArea.style.display = "block";
+        }else{
+            newGenreArea.style.display = "none";
+        }
+    });
+
+    // 新しいジャンルを追加
+    function addGenre(){
+        const input = document.getElementById("newGenre");
+        const name = input.value.trim();
+
+        if(name===""){
+            alert("ジャンル名を入力してください");
+            return;
+        }
+
+        // 同じジャンルがあるか確認
+        for (let option of genreSelect.options){
+            if(option.value === name){
+                alert("そのジャンルはすでにあります。");
+                return;
+            }
+        }
+
+        // option作成
+        const option =document.createElement("option");
+        option.value = name;
+        option.textContent = name;
+
+        // 「＋新規作成」の前に追加
+        genre.Select.insertBefore(option,genreSelect.lastElementChild);
+
+        // 追加したジャンルを選択
+        genreSelect.value = name;
+
+        // リセット
+        input.value ="";
+        newGenreArea.style.display ="none";
+    }
+</script>
 
 <!-- 右下の＋ボタン -->
 <button
