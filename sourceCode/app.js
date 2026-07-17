@@ -335,6 +335,12 @@
     titleInput.classList.remove('active');
     newGenreArea.classList.add('hidden');
     taskAddModal.classList.remove('hidden');
+    if (genreInput.value === NEW_GENRE_OPTION_VALUE) {
+      newGenreArea.classList.remove('hidden');
+      newGenreInput.focus();
+    } else {
+      newGenreArea.classList.add('hidden');
+    }
   });
 
   showGenreEditModalButton.addEventListener('click', () => {
