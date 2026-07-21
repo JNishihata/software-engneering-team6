@@ -468,7 +468,6 @@
     // タスク一覧を現在のフィルター条件に従って再描画する。
   function render() {
 
-    const status = statusFilter.value;
     const priority = priorityFilter.value;
     const genre = genreFilter.value;
 
@@ -479,9 +478,7 @@
       // 「完了済みタスクを表示」のチェックボックスを押すと完了も表示される
       if (!showCompleted.checked && t.completed) return;
 
-      // ステータス
-      if (status === 'active' && t.completed) return;
-      if (status === 'completed' && !t.completed) return;
+
 
       // 優先度
       if (priority !== 'all' && t.priority !== priority) return;
@@ -818,7 +815,6 @@
   });
 
   // フィルター（ステータス/優先度/ジャンル）が変更されたら一覧を再描画する
-  statusFilter.addEventListener('change', render);
   priorityFilter.addEventListener('change', render);
   genreFilter.addEventListener('change', render);
   showCompleted.addEventListener('change', render);
