@@ -197,6 +197,11 @@ header h1{
   border-bottom:2px solid #e5e7eb;
 }
 
+.task-section-header.overdue-section{
+  color:#ef4444;
+  border-bottom-color:#fecaca;
+}
+
 .task-section-header:first-of-type{
   margin-top:0;
 }
@@ -251,6 +256,18 @@ header h1{
 .task.completed .title{
   text-decoration:line-through;
   color:var(--muted);
+}
+
+.task.overdue .title{
+  color:#ef4444;
+}
+
+.task.overdue .meta{
+  color:#ef4444;
+}
+
+.task.overdue .note{
+  color:#ef4444;
 }
 
 /* ===========================

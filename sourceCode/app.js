@@ -378,7 +378,14 @@
 
     const li = document.createElement('li');
 
-    li.className = 'task' + (task.completed ? ' completed' : '');
+    let className = 'task' + (task.completed ? ' completed' : '');
+
+    // 期限切れの場合は overdueクラスを追加
+    if (getDateSection(task.due) === 'overdue') {
+      className += ' overdue';
+    }
+
+    li.className = className;
 
     const left = document.createElement('div');
     left.className = 'left';
@@ -477,6 +484,7 @@
     const diffTime = dueDate - today;
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
+    if (diffDays < 0) return 'overdue';
     if (diffDays === 0) return 'today';
     if (diffDays === 1) return 'tomorrow';
     if (diffDays > 1 && diffDays <= 6) return 'this-week';
@@ -486,12 +494,13 @@
 
   // セクション情報（順序、表示名など）
   const sectionConfig = {
-    'today': { order: 0, label: '今日', icon: '📅' },
-    'tomorrow': { order: 1, label: '明日', icon: '📅' },
-    'this-week': { order: 2, label: '今週', icon: '📆' },
-    'next-week': { order: 3, label: '来週', icon: '📆' },
-    'later': { order: 4, label: 'それ以降', icon: '📌' },
-    'no-deadline': { order: 5, label: '期限なし', icon: '∞' }
+    'overdue': { order: 0, label: '期限切れ', icon: '🚨' },
+    'today': { order: 1, label: '今日', icon: '📅' },
+    'tomorrow': { order: 2, label: '明日', icon: '📅' },
+    'this-week': { order: 3, label: '今週', icon: '📆' },
+    'next-week': { order: 4, label: '来週', icon: '📆' },
+    'later': { order: 5, label: 'それ以降', icon: '📌' },
+    'no-deadline': { order: 6, label: '期限なし', icon: '∞' }
   };
 
     // タスク一覧を現在のフィルター条件に従って再描画する。
@@ -541,7 +550,7 @@
 
         // セクションヘッダーを作成
         const sectionHeader = document.createElement('div');
-        sectionHeader.className = 'task-section-header';
+        sectionHeader.className = 'task-section-header' + (sectionKey === 'overdue' ? ' overdue-section' : '');
         sectionHeader.textContent = `${sectionConfig[sectionKey].icon} ${sectionConfig[sectionKey].label}`;
         listEl.appendChild(sectionHeader);
 
