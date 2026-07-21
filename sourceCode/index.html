@@ -16,9 +16,16 @@
         <h1>ToDo アプリ</h1>
 
         <div class="menu-wrapper">
-            <button type="button" id="menu-button" class="menu-button" aria-label="メニュー">・・・</button>
+            <button type="button" id="menu-button" class="menu-button" aria-label="メニュー">
+                <img src="HeaderMenuButtonIcon.png" alt="メニュー" class="menu-icon">
+            </button>
             <div id="menu-dropdown" class="menu-dropdown hidden">
                 <button id="show-genre-edit-modal-button">ジャンル管理</button>
+        
+                <label>
+                    <input type="checkbox" id="show-completed">
+                    完了済みタスクを表示
+                </label>
             </div>
         </div>
     </header>
@@ -26,6 +33,7 @@
     <!-- フィルター -->
     <div class="controls">
 
+        <!-- ・・・から変更できるようにしたのでここは不要 -->
         <label>
             ステータス：
             <select id="filter-status">
@@ -51,8 +59,6 @@
         </label>
 
     </div>
-
-    <p id="error-message" class="error-message"></p>
     <ul id="task-edit" class="task-edit"></ul>
     <ul id="task-list" class="task-list"></ul>
 
@@ -119,6 +125,7 @@
                 </button>
             </div>
 
+
             <!-- ここだけID追加 -->
             <button
                 id="task-submit-button"
@@ -126,10 +133,13 @@
                 追加
             </button>
 
+
+            <p id="error-message" class="error-message"></p>
+            <button type="submit">追加</button>
+
         </form>
 
     </div>
-
 </div>
 
 
