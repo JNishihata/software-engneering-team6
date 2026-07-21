@@ -26,6 +26,7 @@
   const menuButton = document.getElementById('menu-button');
   const menuDropdown = document.getElementById('menu-dropdown');
   const genreManageList = document.getElementById('genre-manage-list');
+  const showCompleted = document.getElementById('show-completed');
 
   // ジャンルの新規作成を選ぶ際に使う特別な値（実際のジャンル名とは絶対に衝突しない前提の予約値）
   const NEW_GENRE_OPTION_VALUE = '__new__';
@@ -475,6 +476,9 @@
 
     tasks.forEach((t, i) => {
 
+      // 「完了済みタスクを表示」のチェックボックスを押すと完了も表示される
+      if (!showCompleted.checked && t.completed) return;
+
       // ステータス
       if (status === 'active' && t.completed) return;
       if (status === 'completed' && !t.completed) return;
@@ -584,7 +588,12 @@
     newGenreArea.classList.add('hidden');
 
     taskAddModal.classList.remove('hidden');
-
+    if (genreInput.value === NEW_GENRE_OPTION_VALUE) {
+      newGenreArea.classList.remove('hidden');
+      newGenreInput.focus();
+    } else {
+      newGenreArea.classList.add('hidden');
+    }
   });
 
   showGenreEditModalButton.addEventListener('click', () => {
@@ -808,28 +817,11 @@
 
   });
 
-
-  // ==========================
-  // フィルター
-  // ==========================
-
-  statusFilter.addEventListener(
-    'change',
-    render
-  );
-
-
-  priorityFilter.addEventListener(
-    'change',
-    render
-  );
-
-
-  genreFilter.addEventListener(
-    'change',
-    render
-  );
-
+  // フィルター（ステータス/優先度/ジャンル）が変更されたら一覧を再描画する
+  statusFilter.addEventListener('change', render);
+  priorityFilter.addEventListener('change', render);
+  genreFilter.addEventListener('change', render);
+  showCompleted.addEventListener('change', render);
 
   // ==========================
   // 初期化
