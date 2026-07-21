@@ -30,6 +30,7 @@
   const taskSubmitButton = document.getElementById('task-submit-button');
 
   const showCompleted = document.getElementById('show-completed');
+  const searchInput = document.getElementById('search-input');
 
 
   // ジャンルの新規作成を選ぶ際に使う特別な値（実際のジャンル名とは絶対に衝突しない前提の予約値）
@@ -514,6 +515,8 @@
     const priority = priorityFilter.value;
     const genre = genreFilter.value;
 
+    const searchQuery = searchInput.value.trim().toLowerCase();
+
     listEl.innerHTML = '';
 
     // セクション別にタスクをグループ化
@@ -535,6 +538,16 @@
         return;
       }
 
+      if (searchQuery) {
+        const titleText = (t.title || '').toLowerCase();
+        const noteText = (t.note || '').toLowerCase();
+
+        if (!titleText.includes(searchQuery) && !noteText.includes(searchQuery)) {
+          return;
+        }
+      }
+
+      listEl.appendChild(createTaskElement(t, i));
       // セクションキーを取得
       const sectionKey = getDateSection(t.due);
 
@@ -916,6 +929,8 @@
   priorityFilter.addEventListener('change', render);
   genreFilter.addEventListener('change', render);
   showCompleted.addEventListener('change', render);
+
+  searchInput.addEventListener('input', render);
 
   // ==========================
   // 初期化
