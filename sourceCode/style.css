@@ -185,6 +185,28 @@ header h1{
 }
 
 /* ===========================
+   タスクセクション
+=========================== */
+
+.task-section-header{
+  font-size:0.95rem;
+  font-weight:bold;
+  color:#111827;
+  padding:12px 0 8px 0;
+  margin-top:16px;
+  border-bottom:2px solid #e5e7eb;
+}
+
+.task-section-header:first-of-type{
+  margin-top:0;
+}
+
+.task-section{
+  display:flex;
+  flex-direction:column;
+}
+
+/* ===========================
    タスク一覧
 =========================== */
 
