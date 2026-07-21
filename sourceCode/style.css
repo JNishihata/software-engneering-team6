@@ -185,6 +185,33 @@ header h1{
 }
 
 /* ===========================
+   タスクセクション
+=========================== */
+
+.task-section-header{
+  font-size:0.95rem;
+  font-weight:bold;
+  color:#111827;
+  padding:12px 0 8px 0;
+  margin-top:16px;
+  border-bottom:2px solid #e5e7eb;
+}
+
+.task-section-header.overdue-section{
+  color:#ef4444;
+  border-bottom-color:#fecaca;
+}
+
+.task-section-header:first-of-type{
+  margin-top:0;
+}
+
+.task-section{
+  display:flex;
+  flex-direction:column;
+}
+
+/* ===========================
    タスク一覧
 =========================== */
 
@@ -229,6 +256,18 @@ header h1{
 .task.completed .title{
   text-decoration:line-through;
   color:var(--muted);
+}
+
+.task.overdue .title{
+  color:#ef4444;
+}
+
+.task.overdue .meta{
+  color:#ef4444;
+}
+
+.task.overdue .note{
+  color:#ef4444;
 }
 
 /* ===========================
