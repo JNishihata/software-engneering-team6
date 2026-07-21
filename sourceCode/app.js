@@ -8,7 +8,7 @@
   const dueInput = document.getElementById('due');
   const priorityInput = document.getElementById('task-priority');
   const genreInput = document.getElementById('task-genre');
-  const statusFilter = document.getElementById('filter-status');
+  // const statusFilter = document.getElementById('filter-status');
   const priorityFilter = document.getElementById('filter-priority');
   const genreFilter = document.getElementById('filter-genre');
   const listEl = document.getElementById('task-list');
