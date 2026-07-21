@@ -26,6 +26,8 @@
   const menuButton = document.getElementById('menu-button');
   const menuDropdown = document.getElementById('menu-dropdown');
   const genreManageList = document.getElementById('genre-manage-list');
+  const taskModalTitle = document.getElementById('task-modal-title');
+  const taskSubmitButton = document.getElementById('task-submit-button');
 
   // ジャンルの新規作成を選ぶ際に使う特別な値（実際のジャンル名とは絶対に衝突しない前提の予約値）
   const NEW_GENRE_OPTION_VALUE = '__new__';
@@ -540,6 +542,9 @@
 
         editing = true;
 
+        taskModalTitle.textContent = 'タスク編集';
+        taskSubmitButton.textContent = '保存';
+
         const i = Number(e.target.dataset.index);
 
         editing_task_index = i;
@@ -577,6 +582,9 @@
 
     editing = false;
     editing_task_index = -1;
+
+    taskModalTitle.textContent = 'タスク追加';
+    taskSubmitButton.textContent = '追加';
 
     error.textContent = '';
     titleInput.classList.remove('active');
@@ -658,6 +666,12 @@
   // ==========================
 
   closeTaskAddModalButton.addEventListener('click', () => {
+    
+    editing = false;
+    editing_task_index = -1;
+
+    taskModalTitle.textContent = 'タスク追加';
+    taskSubmitButton.textContent = '追加';
 
     taskAddModal.classList.add('hidden');
 
@@ -672,6 +686,13 @@
   taskAddModal.addEventListener('click', e => {
 
     if (e.target === taskAddModal) {
+
+        editing = false;
+        editing_task_index = -1;
+
+        taskModalTitle.textContent = 'タスク追加';
+        taskSubmitButton.textContent = '追加';
+
       taskAddModal.classList.add('hidden');
     }
 
@@ -803,6 +824,9 @@
     editing=false;
 
     editing_task_index=-1;
+
+    taskModalTitle.textContent = 'タスク追加';
+    taskSubmitButton.textContent = '追加';
 
     taskAddModal.classList.add('hidden');
 
