@@ -26,6 +26,7 @@
   const menuDropdown = document.getElementById('menu-dropdown');
   const genreManageList = document.getElementById('genre-manage-list');
   const showCompleted = document.getElementById('show-completed');
+  const searchInput = document.getElementById('search-input');
 
   // ジャンルの新規作成を選ぶ際に使う特別な値（実際のジャンル名とは絶対に衝突しない前提の予約値）
   const NEW_GENRE_OPTION_VALUE = '__new__';
@@ -470,14 +471,14 @@
     const priority = priorityFilter.value;
     const genre = genreFilter.value;
 
+    const searchQuery = searchInput.value.trim().toLowerCase();
+
     listEl.innerHTML = '';
 
     tasks.forEach((t, i) => {
 
       // 「完了済みタスクを表示」のチェックボックスを押すと完了も表示される
       if (!showCompleted.checked && t.completed) return;
-
-
 
       // 優先度
       if (priority !== 'all' && t.priority !== priority) return;
@@ -488,6 +489,15 @@
         String(t.genre) !== genre
       ) {
         return;
+      }
+
+      if (searchQuery) {
+        const titleText = (t.title || '').toLowerCase();
+        const noteText = (t.note || '').toLowerCase();
+
+        if (!titleText.includes(searchQuery) && !noteText.includes(searchQuery)) {
+          return;
+        }
       }
 
       listEl.appendChild(createTaskElement(t, i));
@@ -817,6 +827,8 @@
   priorityFilter.addEventListener('change', render);
   genreFilter.addEventListener('change', render);
   showCompleted.addEventListener('change', render);
+
+  searchInput.addEventListener('input', render);
 
   // ==========================
   // 初期化
