@@ -547,7 +547,6 @@
         }
       }
 
-      listEl.appendChild(createTaskElement(t, i));
       // セクションキーを取得
       const sectionKey = getDateSection(t.due);
 
