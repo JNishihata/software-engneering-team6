@@ -25,8 +25,13 @@
   const menuButton = document.getElementById('menu-button');
   const menuDropdown = document.getElementById('menu-dropdown');
   const genreManageList = document.getElementById('genre-manage-list');
+
+  const taskModalTitle = document.getElementById('task-modal-title');
+  const taskSubmitButton = document.getElementById('task-submit-button');
+
   const showCompleted = document.getElementById('show-completed');
   const searchInput = document.getElementById('search-input');
+
 
   // ジャンルの新規作成を選ぶ際に使う特別な値（実際のジャンル名とは絶対に衝突しない前提の予約値）
   const NEW_GENRE_OPTION_VALUE = '__new__';
@@ -379,7 +384,14 @@
 
     const li = document.createElement('li');
 
-    li.className = 'task' + (task.completed ? ' completed' : '');
+    let className = 'task' + (task.completed ? ' completed' : '');
+
+    // 期限切れの場合は overdueクラスを追加
+    if (getDateSection(task.due) === 'overdue') {
+      className += ' overdue';
+    }
+
+    li.className = className;
 
     const left = document.createElement('div');
     left.className = 'left';
@@ -465,6 +477,38 @@
     return li;
 
   }
+  // 日付のセクション分類を行う
+  function getDateSection(due) {
+    if (!due) return 'no-deadline';
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const dueDate = new Date(due);
+    dueDate.setHours(0, 0, 0, 0);
+
+    const diffTime = dueDate - today;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays < 0) return 'overdue';
+    if (diffDays === 0) return 'today';
+    if (diffDays === 1) return 'tomorrow';
+    if (diffDays > 1 && diffDays <= 6) return 'this-week';
+    if (diffDays > 6 && diffDays <= 13) return 'next-week';
+    return 'later';
+  }
+
+  // セクション情報（順序、表示名など）
+  const sectionConfig = {
+    'overdue': { order: 0, label: '期限切れ', icon: '🚨' },
+    'today': { order: 1, label: '今日', icon: '📅' },
+    'tomorrow': { order: 2, label: '明日', icon: '📅' },
+    'this-week': { order: 3, label: '今週', icon: '📆' },
+    'next-week': { order: 4, label: '来週', icon: '📆' },
+    'later': { order: 5, label: 'それ以降', icon: '📌' },
+    'no-deadline': { order: 6, label: '期限なし', icon: '∞' }
+  };
+
     // タスク一覧を現在のフィルター条件に従って再描画する。
   function render() {
 
@@ -474,6 +518,9 @@
     const searchQuery = searchInput.value.trim().toLowerCase();
 
     listEl.innerHTML = '';
+
+    // セクション別にタスクをグループ化
+    const sections = {};
 
     tasks.forEach((t, i) => {
 
@@ -501,8 +548,41 @@
       }
 
       listEl.appendChild(createTaskElement(t, i));
+      // セクションキーを取得
+      const sectionKey = getDateSection(t.due);
+
+      if (!sections[sectionKey]) {
+        sections[sectionKey] = [];
+      }
+
+      sections[sectionKey].push({ task: t, index: i });
 
     });
+
+    // セクション順序でソートして表示
+    Object.keys(sectionConfig)
+      .sort((a, b) => sectionConfig[a].order - sectionConfig[b].order)
+      .forEach(sectionKey => {
+
+        if (!sections[sectionKey] || sections[sectionKey].length === 0) return;
+
+        // セクションヘッダーを作成
+        const sectionHeader = document.createElement('div');
+        sectionHeader.className = 'task-section-header' + (sectionKey === 'overdue' ? ' overdue-section' : '');
+        sectionHeader.textContent = `${sectionConfig[sectionKey].icon} ${sectionConfig[sectionKey].label}`;
+        listEl.appendChild(sectionHeader);
+
+        // セクション内のタスクを表示
+        const section = document.createElement('div');
+        section.className = 'task-section';
+
+        sections[sectionKey].forEach(({ task, index }) => {
+          section.appendChild(createTaskElement(task, index));
+        });
+
+        listEl.appendChild(section);
+
+      });
 
     attachListeners();
 
@@ -550,6 +630,9 @@
 
         editing = true;
 
+        taskModalTitle.textContent = 'タスク編集';
+        taskSubmitButton.textContent = '保存';
+
         const i = Number(e.target.dataset.index);
 
         editing_task_index = i;
@@ -587,6 +670,9 @@
 
     editing = false;
     editing_task_index = -1;
+
+    taskModalTitle.textContent = 'タスク追加';
+    taskSubmitButton.textContent = '追加';
 
     error.textContent = '';
     titleInput.classList.remove('active');
@@ -673,6 +759,12 @@
   // ==========================
 
   closeTaskAddModalButton.addEventListener('click', () => {
+    
+    editing = false;
+    editing_task_index = -1;
+
+    taskModalTitle.textContent = 'タスク追加';
+    taskSubmitButton.textContent = '追加';
 
     taskAddModal.classList.add('hidden');
 
@@ -687,6 +779,13 @@
   taskAddModal.addEventListener('click', e => {
 
     if (e.target === taskAddModal) {
+
+        editing = false;
+        editing_task_index = -1;
+
+        taskModalTitle.textContent = 'タスク追加';
+        taskSubmitButton.textContent = '追加';
+
       taskAddModal.classList.add('hidden');
     }
 
@@ -818,6 +917,9 @@
     editing=false;
 
     editing_task_index=-1;
+
+    taskModalTitle.textContent = 'タスク追加';
+    taskSubmitButton.textContent = '追加';
 
     taskAddModal.classList.add('hidden');
 
