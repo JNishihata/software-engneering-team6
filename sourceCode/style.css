@@ -108,6 +108,13 @@ header h1{
 .genre-manage-list li + li{
   border-top:1px solid #f0f0f0;
 }
+.genre-edit{
+  background:none;
+  border:none;
+  color:#2563eb;
+  cursor:pointer;
+  margin-right:8px;
+}
 
 .genre-manage-list .genre-delete{
   background:none;
