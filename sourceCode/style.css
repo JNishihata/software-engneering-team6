@@ -59,15 +59,16 @@ header h1{
   transition: background-color 0.2s ease;
 }
 
-.menu-button:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
 .menu-icon {
-  width: 48px;   /* 調整中 */
-  height: 48px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
   display: block;
+  transition: transform 0.2s ease;
+}
+
+.menu-button:hover .menu-icon {
+  transform: scale(1.08); 
 }
 
 .menu-dropdown{
